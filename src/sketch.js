@@ -2,7 +2,7 @@ let boundaries = [];
 let particle;
 
 function setup() {
-  createCanvas(screen.width, screen.height);
+  createCanvas(windowWidth, windowHeight);
   for (let i = 0; i < 5; i++) {
     const x1 = random(width);
     const x2 = random(width);
