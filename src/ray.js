@@ -1,6 +1,6 @@
-function Ray(x, y) {
-  const pos = createVector(x, y);
-  const dir = createVector(1, 0);
+function Ray(position, angle) {
+  const pos = position;
+  const dir = p5.Vector.fromAngle(angle);
 
   return {
     show() {
@@ -9,6 +9,11 @@ function Ray(x, y) {
       translate(pos.x, pos.y);
       line(0, 0, dir.x * 10, dir.y * 10);
       pop();
+    },
+    lookAt(x, y) {
+      dir.x = x - pos.x;
+      dir.y = y - pos.y;
+      dir.normalize();
     },
     cast(boundary) {
       const x1 = boundary.a.x;
@@ -30,8 +35,10 @@ function Ray(x, y) {
       const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / den;
 
       if (t > 0 && t < 1 && u > 0) {
-        return true;
-
+        const point = createVector();
+        point.x = x1 + t * (x2 - x1);
+        point.y = y1 + t * (y2 - y1);
+        return point;
       }
     },
   };
